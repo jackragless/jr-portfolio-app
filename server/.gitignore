@@ -1,0 +1,29 @@
+# Node.js dependencies
+/node_modules
+
+# Build output
+/dist
+/build
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+.DS_Store
+
+# Database files
+# (Note: including portfolio.sqlite in git since it's needed for the application)
+/data/*.sqlite-journal
+/data/backups
+
+# Coverage directory used by tools like istanbul
+/coverage
+
+# TypeScript cache
+*.tsbuildinfo
