@@ -16,9 +16,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000; 
 
-// Basic CORS configuration - simplified to avoid issues
-app.use(cors());
-
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -35,20 +32,45 @@ app.use('/api/experiences', experienceRoutes);
 app.use('/api/education', educationRoutes);
 app.use('/api/technologies', technologyRoutes);
 
-// Initialize database and start server
-const startServer = async () => {
-  try {
-    // Initialize the database connection
-    await initializeDatabase();
-    
-    // Start server
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
+// Initialize database
+let isDbInitialized = false;
+const initDb = async () => {
+  if (!isDbInitialized) {
+    try {
+      await initializeDatabase();
+      isDbInitialized = true;
+      console.log('Database initialized');
+    } catch (error) {
+      console.error('Failed to initialize database:', error);
+      throw error;
+    }
   }
 };
 
-startServer();
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  const startServer = async () => {
+    try {
+      await initDb();
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    } catch (error) {
+      console.error('Failed to start server:', error);
+      process.exit(1);
+    }
+  };
+  
+  startServer();
+}
+
+// For Vercel serverless function
+export default async (req: any, res: any) => {
+  try {
+    await initDb();
+    return app(req, res);
+  } catch (error) {
+    console.error('Error in serverless function:', error);
+    return res.status(500).send('Internal Server Error');
+  }
+};
