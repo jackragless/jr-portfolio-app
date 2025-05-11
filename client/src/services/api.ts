@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
+// Determine the base URL based on the environment
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? '/api'  // In production, use relative path
+  : 'http://localhost:8000/api';  // In development, use localhost
 
 // Create axios instance with default config
 const apiClient = axios.create({
