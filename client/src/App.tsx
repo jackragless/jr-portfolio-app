@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Box, MantineProvider, createTheme, ColorSchemeScript } from '@mantine/core';
-import { useColorScheme, useLocalStorage } from '@mantine/hooks';
+import { useLocalStorage } from '@mantine/hooks';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MainPage from './pages/MainPage';
@@ -32,9 +32,6 @@ function App() {
     projects: projectsRef
   };
   
-  // Get system color scheme preference
-  const systemColorScheme = useColorScheme();
-  
   // Store color scheme preference in local storage, defaulting to system preference
   const [colorScheme, setColorScheme] = useLocalStorage<'light' | 'dark' | 'auto'>({
     key: 'portfolio-color-scheme',
@@ -45,9 +42,6 @@ function App() {
   const toggleColorScheme = (value?: 'light' | 'dark' | 'auto') => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : colorScheme === 'light' ? 'auto' : 'dark'));
   };
-  
-  // Get the final color scheme (resolves 'auto' to 'light' or 'dark' based on system preference)
-  const computedColorScheme = colorScheme === 'auto' ? systemColorScheme : colorScheme;
   
   // Function to scroll to sections
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement | null>) => {

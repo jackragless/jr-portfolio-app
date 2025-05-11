@@ -1,25 +1,6 @@
 import React from "react";
-import { Box, Text, Tooltip } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import * as TablerIcons from "@tabler/icons-react";
-
-// Import technology icons dynamically
-const importIcon = (iconName: string) => {
-  try {
-    // Get only the filename without path or extension
-    const fileName = iconName.split('/').pop()?.split('.')[0];
-    if (!fileName) return null;
-    
-    // Determine the file extension based on the iconName
-    let extension = 'png';
-    if (iconName.endsWith('.ico')) extension = 'ico';
-    
-    // Try to require the icon dynamically - this will only work during development
-    return require(`../assets/technologies/${fileName}.${extension}`);
-  } catch (error) {
-    console.error(`Failed to import icon: ${iconName}`, error);
-    return null;
-  }
-};
 
 // Helper function to get an icon component by name
 const getIconComponent = (iconName: string, size = 20) => {
