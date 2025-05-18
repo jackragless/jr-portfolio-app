@@ -28,7 +28,7 @@ async function seedDatabase() {
     // --------- Seed Profile data ---------
     const profileData = {
       name: "Jack Ragless",
-      title: "Full Stack Software Engineer | Previous Data Science Expererience",
+      title: "Full Stack Software Engineer | Previous Data Science Experience",
       bio: "Jack of all trades (excuse the pun). For me, software engineering isn’t a medium to display technical prowess. It’s the distillation of client needs into impactful products and features.",
       bioExtended: `My path to computer science was a winding one. My interests in economics led me to data science projects, which turned into a passion for software development. 
 While studying my Bachelors, I undertook government research in Natural Language Processing (machine learning). 
