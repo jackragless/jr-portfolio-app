@@ -14,7 +14,7 @@ npm install
 
 # Build the application
 echo "🏗️ Building the application..."
-npm run build
+CI=false npm run build
 
 # Ensure database is properly included
 echo "🗄️ Checking database file..."

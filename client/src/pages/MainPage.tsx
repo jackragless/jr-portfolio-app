@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Title,
@@ -15,58 +15,14 @@ import * as TablerIcons from "@tabler/icons-react";
 import ProjectCard from "../components/ProjectCard";
 import TechnologyBadge from "../components/TechnologyBadge";
 import {
-  ProjectService,
   Project,
-  ProfileService,
   Profile,
-  ExperienceService,
   Experience,
-  EducationService,
   Education,
-  TechnologyService,
   Technology,
 } from "../services/api";
-
-// Import project images
-import architecturePortfolioApp from "../assets/projects/architecture_portfolio_app.png";
-import auscyclingTimeTrialApp from "../assets/projects/auscycling_time_trial_app.png";
-import bitcoinDashboard from "../assets/projects/bitcoin_dashboard.png";
-import chess from "../assets/projects/chess.png";
-import dissectingTheNeedleDrop from "../assets/projects/dissecting_the_needle_drop.gif";
-import glotex from "../assets/projects/glotex.png";
-
-// Map image names to their imported references
-const projectImages: Record<string, string> = {
-  "architecture_portfolio_app.png": architecturePortfolioApp,
-  "auscycling_time_trial_app.png": auscyclingTimeTrialApp,
-  "bitcoin_dashboard.png": bitcoinDashboard,
-  "chess.png": chess,
-  "dissecting_the_needle_drop.gif": dissectingTheNeedleDrop,
-  "glotex.png": glotex,
-};
-
-// Helper function to get the correct image path
-const getProjectImagePath = (imageUrl?: string): string | undefined => {
-  if (!imageUrl) return undefined;
-  
-  // If it's a full URL (starts with http), use it directly
-  if (imageUrl.startsWith('http')) {
-    return imageUrl;
-  }
-  
-  // Extract the filename from the path (in case it includes directories)
-  const filename = imageUrl.split('/').pop();
-  
-  // Return the imported image reference if available
-  if (filename && projectImages[filename]) {
-    return projectImages[filename];
-  }
-  
-  // If we can't resolve it, return the original path and let the fallback handle it
-  return imageUrl;
-};
-
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css'; // Import CSS for effects
 
 // Section refs for scrolling
 interface SectionRefs {
@@ -77,6 +33,12 @@ interface SectionRefs {
 
 interface MainPageProps {
   sectionRefs: SectionRefs;
+  profile?: Profile;
+  projects: Project[]; // Added projects
+  experiences: Experience[]; // Added experiences
+  education: Education[]; // Added education
+  technologies: Technology[]; // Added technologies
+  allDataLoaded: boolean; // Added allDataLoaded
 }
 
 // About Section Content
@@ -87,25 +49,23 @@ const AboutSection: React.FC<{
   education?: Education[];
 }> = ({ innerRef, profile, experiences, education }) => {
   if (!profile) {
-    return (
-      <Box ref={innerRef} py={80} id="about">
-        <Container size="lg">
-          <Text size="lg" ta="center">
-            Loading about me...
-          </Text>
-        </Container>
-      </Box>
-    );
+    return null;
   }
 
   return (
     <Box ref={innerRef} py={80} id="about">
-      <Title order={2} size="h1" mb="xl" ta="center">
-        About Me
-      </Title>
       <Container size="lg">
+        <Title order={2} size="h1" mb="xl" ta="left">
+          About Me.
+        </Title>
+        <Text size="lg" mb="xl" style={{ whiteSpace: "pre-line" }}>
+          {profile.bioExtended || profile.bio}
+        </Text>
+
+        <Divider my="xl" />
+
         <Stack gap="md">
-          <Title order={3}>Experience</Title>
+          <Title order={3} ta="left">Experience.</Title>
           {experiences && experiences.length > 0 ? (
             experiences.map((exp) => (
               <Box key={exp.id} mb="md">
@@ -119,14 +79,14 @@ const AboutSection: React.FC<{
               </Box>
             ))
           ) : (
-            <Text>Loading experience...</Text>
+            <Text>No experience data available.</Text>
           )}
         </Stack>
 
         <Divider my="xl" />
 
         <Stack gap="md">
-          <Title order={3}>Education</Title>
+          <Title order={3} ta="left">Education.</Title>
           {education && education.length > 0 ? (
             education.map((edu) => (
               <Box key={edu.id}>
@@ -140,7 +100,7 @@ const AboutSection: React.FC<{
               </Box>
             ))
           ) : (
-            <Text>Loading education...</Text>
+            <Text>No education data available.</Text>
           )}
         </Stack>
       </Container>
@@ -156,8 +116,8 @@ const TechnologiesSection: React.FC<{
   return (
     <Box ref={innerRef} py={80} id="technologies">
       <Container size="lg">
-        <Title order={2} size="h1" mb="xl" ta="center">
-          Technologies I Use
+        <Title order={2} size="h1" mb="xl" ta="left">
+          Technologies I Use.
         </Title>
 
         {technologies && technologies.length > 0 ? (
@@ -174,7 +134,7 @@ const TechnologiesSection: React.FC<{
           </Box>
         ) : (
           <Text size="lg" ta="center">
-            Loading technologies...
+            No technologies data available.
           </Text>
         )}
       </Container>
@@ -190,8 +150,8 @@ const ProjectsSection: React.FC<{
   return (
     <Box ref={innerRef} py={80} id="projects">
       <Container size="lg">
-        <Title order={2} size="h1" mb="xl" ta="center">
-          My Projects
+        <Title order={2} size="h1" mb="xl" ta="left">
+          My Projects.
         </Title>
 
         {projects.length > 0 ? (
@@ -202,7 +162,7 @@ const ProjectsSection: React.FC<{
                 id={project.id}
                 title={project.title}
                 description={project.description}
-                imageUrl={getProjectImagePath(project.imageUrl)}
+                imageUrl={project.imageUrl}
                 technologies={project.technologies}
                 githubUrl={project.githubUrl}
                 projectUrl={project.projectUrl}
@@ -211,7 +171,7 @@ const ProjectsSection: React.FC<{
           </SimpleGrid>
         ) : (
           <Text size="lg" ta="center">
-            Loading projects...
+            No projects data available.
           </Text>
         )}
       </Container>
@@ -221,7 +181,7 @@ const ProjectsSection: React.FC<{
 
 // Hero Section
 const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = React.useState(false);
   
   const copyEmailToClipboard = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
@@ -231,13 +191,7 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
   };
 
   if (!profile) {
-    return (
-      <Box py={100} style={{ textAlign: "center" }}>
-        <Container size="lg">
-          <Text size="lg">Loading profile...</Text>
-        </Container>
-      </Box>
-    );
+    return null; 
   }
 
   return (
@@ -256,7 +210,7 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
             {profile.location && (
               <Group mb="md" align="center">
                 <a 
-                  href={profile.locationUrl || "https://www.google.com.au/maps/place/Your+mum's+house/@-33.7673436,151.0473728,17z/data=!3m1!4b1!4m6!3m5!1s0x6b12a500725954a5:0xad083c3688295d78!8m2!3d-33.7673436!4d151.0499477!16s%2Fg%2F11x5tkkmkh?entry=ttu&g_ep=EgoyMDI1MDUwNy4wIKXMDSoASAFQAw%3D%3D"}
+                  href={profile.locationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ 
@@ -354,19 +308,26 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
           <div style={{ 
             flex: "0 0 auto", 
             maxWidth: "350px",
-            width: "100%",
+            width: "300px", // Changed from 100% to fixed width
+            height: "300px", // Added fixed height for placeholder
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
+            alignItems: "center" // Added for vertical centering
           }}>
-            <img 
-              src={require("../assets/portrait.png")} 
+            <LazyLoadImage
               alt="Jack Ragless"
+              effect="blur"
+              src={require("../assets/portrait.png")} // your image source
               style={{ 
+                display: "block", // Added display: block
                 maxWidth: "100%",
+                maxHeight: "100%", // Added maxHeight
+                width: "auto", // Added width: auto
                 height: "auto",
                 borderRadius: "8px",
                 boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)"
               }}
+              placeholderSrc={require("../assets/portrait_compressed.png")} // optional placeholder image
             />
           </div>
         </div>
@@ -376,81 +337,56 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
 };
 
 // Main Page Component
-const MainPage: React.FC<MainPageProps> = ({ sectionRefs }) => {
-  const [projects, setProjects] = React.useState<Project[]>([]);
-  const [profile, setProfile] = React.useState<Profile | undefined>(undefined);
-  const [experiences, setExperiences] = React.useState<Experience[]>([]);
-  const [education, setEducation] = React.useState<Education[]>([]);
-  const [technologies, setTechnologies] = React.useState<Technology[]>([]);
+const MainPage: React.FC<MainPageProps> = ({ 
+  sectionRefs, 
+  profile, 
+  projects, 
+  experiences, 
+  education, 
+  technologies, 
+  allDataLoaded 
+}) => {
+  const [fadeIn, setFadeIn] = useState(false);
 
-  React.useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await ProjectService.getProjects();
-        setProjects(data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-
-    const fetchProfile = async () => {
-      try {
-        const data = await ProfileService.getProfile();
-        setProfile(data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-
-    const fetchExperiences = async () => {
-      try {
-        const data = await ExperienceService.getExperiences();
-        setExperiences(data);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
-      }
-    };
-
-    const fetchEducation = async () => {
-      try {
-        const data = await EducationService.getEducation();
-        setEducation(data);
-      } catch (error) {
-        console.error("Error fetching education:", error);
-      }
-    };
-
-    const fetchTechnologies = async () => {
-      try {
-        const data = await TechnologyService.getTechnologies();
-        setTechnologies(data);
-      } catch (error) {
-        console.error("Error fetching technologies:", error);
-      }
-    };
-
-    fetchProjects();
-    fetchProfile();
-    fetchExperiences();
-    fetchEducation();
-    fetchTechnologies();
-  }, []);
+  useEffect(() => {
+    if (allDataLoaded) {
+      // Timeout to allow the content to be in the DOM before triggering the animation
+      const timer = setTimeout(() => {
+        setFadeIn(true);
+      }, 100); // Small delay
+      return () => clearTimeout(timer);
+    }
+  }, [allDataLoaded]);
 
   return (
-    <Stack gap={0}>
-      <HeroSection profile={profile} />
-      <AboutSection
-        innerRef={sectionRefs.about}
-        profile={profile}
-        experiences={experiences}
-        education={education}
-      />
-      <TechnologiesSection
-        innerRef={sectionRefs.technologies}
-        technologies={technologies}
-      />
-      <ProjectsSection innerRef={sectionRefs.projects} projects={projects} />
-    </Stack>
+    <>
+      {/* Progress bar is now in App.tsx */}
+      {allDataLoaded ? (
+        <div className={fadeIn ? "fade-in" : "content-hidden-for-fade"}>
+          <HeroSection profile={profile} />
+          <AboutSection 
+            innerRef={sectionRefs.about} 
+            profile={profile} 
+            experiences={experiences} 
+            education={education} 
+          />
+          <TechnologiesSection 
+            innerRef={sectionRefs.technologies} 
+            technologies={technologies} 
+          />
+          <ProjectsSection 
+            innerRef={sectionRefs.projects} 
+            projects={projects} 
+          />
+        </div>
+      ) : (
+        // Content is hidden by App.tsx until allDataLoaded is true
+        // This container can be removed or used for a more specific MainPage loading indicator if needed
+        <Container style={{ textAlign: 'center', paddingTop: '20vh' }}>
+          {/* Optional: Add a loading spinner or message specific to MainPage if desired */}
+        </Container>
+      )}
+    </>
   );
 };
 

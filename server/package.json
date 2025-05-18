@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon --config tsconfig-node.json src/index.ts",
+    "dev": "NODE_ENV=development nodemon --config tsconfig-node.json src/index.ts",
     "build": "rm -rf dist && tsc",
     "build:start": "npm run build && npm run start",
     "seed": "ts-node scripts/seedDatabase.ts",

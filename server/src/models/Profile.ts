@@ -33,6 +33,9 @@ export class Profile {
   linkedinUrl: string;
   
   @Column({ nullable: true })
+  discordUrl: string;
+  
+  @Column({ nullable: true })
   email: string;
   
   @CreateDateColumn()

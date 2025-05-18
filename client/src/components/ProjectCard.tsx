@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Text, Group, Button, Stack, ScrollArea } from '@mantine/core';
+import { Card, Image, Text, Group, Button, Stack, ScrollArea, useMantineColorScheme } from '@mantine/core';
 import TechnologyBadge from './TechnologyBadge';
 
 interface ProjectCardProps {
@@ -21,12 +21,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   githubUrl,
   projectUrl
 }) => {
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  // Process the imageUrl to correctly handle project images
+  const resolvedImageSrc = React.useMemo(() => {
+    if (!imageUrl) return null;
+    
+    if (imageUrl.startsWith('http')) {
+      // For external URLs, use as is
+      return imageUrl;
+    } else {
+      // For local paths in assets folder, try to import them
+      try {
+        // Extract the file name from the path
+        const fileName = imageUrl.split('/').pop();
+        if (!fileName) return null;
+        
+        // Import from projects folder
+        return require(`../assets/projects/${fileName}`);
+      } catch (error) {
+        console.error(`Error importing image for ${title}:`, error);
+        return null;
+      }
+    }
+  }, [imageUrl, title]);
+
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder h={450}>
-      {imageUrl && (
+    <Card shadow="sm" padding="lg" radius="md" withBorder h={480} style={{ backgroundColor: isDark ? '#0A0A0B' : '#F6F6F7' }}>
+      {resolvedImageSrc && (
         <Card.Section>
           <Image
-            src={imageUrl}
+            src={resolvedImageSrc}
             height={180}
             alt={title}
             fit="cover"

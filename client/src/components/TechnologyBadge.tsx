@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text } from "@mantine/core";
+import { Box, Text, useMantineColorScheme } from "@mantine/core";
 import * as TablerIcons from "@tabler/icons-react";
 
 // Helper function to get an icon component by name
@@ -34,6 +34,9 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({
   imageUrl,
   url,
 }) => {
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
+
   const handleClick = () => {
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -85,7 +88,7 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({
           padding: "0 12px",
           borderRadius: "4px",
           border: "1px solid var(--mantine-color-gray-3)",
-          backgroundColor: "var(--mantine-color-body)",
+          backgroundColor: isDark ? "#0A0A0B" : "#F6F6F7",
           gap: "8px",
           cursor: url ? "pointer" : "default",
           transition: "all 0.2s ease",

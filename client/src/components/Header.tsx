@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
       </Button>
       <Button 
         component="a" 
-        href="mailto:contact@jackragless.com"
+        href="mailto:contact@jackdragless@gmail.com"
         variant="subtle"
       >
         Contact
@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
         left: 0,
         right: 0,
         height: '60px',
-        backgroundColor: isDark ? '#1A1B1E' : 'white',
+        backgroundColor: isDark ? '#0A0A0B' : '#F6F6F7',
         borderBottom: `1px solid ${isDark ? '#2C2E33' : '#e9ecef'}`,
         zIndex: 100,
       }}
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
       <Container size="xl" style={{ height: '100%' }}>
         <Group justify="space-between" style={{ height: '100%' }}>
           <Text 
-            size="xl" 
+            size="25px" 
             fw={700} 
             c={isDark ? 'blue.4' : 'blue'} 
             component="span" 
@@ -155,7 +155,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
                 <Menu.Item onClick={() => handleNavClick(sectionRefs.projects)}>
                   Projects
                 </Menu.Item>
-                <Menu.Item component="a" href="mailto:contact@jackragless.com">
+                <Menu.Item component="a" href="mailto:contact@jackdragless@gmail.com">
                   Contact
                 </Menu.Item>
               </Menu.Dropdown>

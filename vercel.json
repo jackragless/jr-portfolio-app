@@ -5,14 +5,14 @@
   "framework": "create-react-app",
   "installCommand": "npm install",
   "functions": {
-    "server/dist/index.js": {
+    "api/index.js": {
       "maxDuration": 30
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/server/dist/index.js"
+      "destination": "/api/index.js"
     },
     {
       "source": "/(.*)",
