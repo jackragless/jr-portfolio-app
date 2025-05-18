@@ -38,6 +38,9 @@ export class Profile {
   @Column({ nullable: true })
   email: string;
   
+  @Column({ nullable: true })
+  resumeUrl: string;
+  
   @CreateDateColumn()
   createdAt: Date;
 }

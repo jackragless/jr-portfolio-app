@@ -173,6 +173,7 @@ function App() {
             sectionRefs={sectionRefs} 
             colorScheme={colorScheme}
             toggleColorScheme={toggleColorScheme}
+            profile={profile}
           />
           {!allDataLoaded && (
             <Progress 

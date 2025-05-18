@@ -53,12 +53,12 @@ const AboutSection: React.FC<{
   }
 
   return (
-    <Box ref={innerRef} py={80} id="about">
+    <Box ref={innerRef} py={{ base: 35, md: 50 }} id="about">
       <Container size="lg">
         <Title order={2} size="h1" mb="xl" ta="left">
           About Me.
         </Title>
-        <Text size="lg" mb="xl" style={{ whiteSpace: "pre-line" }}>
+        <Text size="md" mb="xl" style={{ whiteSpace: "pre-line" }}>
           {profile.bioExtended || profile.bio}
         </Text>
 
@@ -114,7 +114,7 @@ const TechnologiesSection: React.FC<{
   technologies?: Technology[];
 }> = ({ innerRef, technologies }) => {
   return (
-    <Box ref={innerRef} py={80} id="technologies">
+    <Box ref={innerRef} py={{ base: 35, md: 50 }} id="technologies">
       <Container size="lg">
         <Title order={2} size="h1" mb="xl" ta="left">
           Technologies I Use.
@@ -148,7 +148,7 @@ const ProjectsSection: React.FC<{
   projects: Project[];
 }> = ({ innerRef, projects }) => {
   return (
-    <Box ref={innerRef} py={80} id="projects">
+    <Box ref={innerRef} py={{ base: 35, md: 50 }} id="projects">
       <Container size="lg">
         <Title order={2} size="h1" mb="xl" ta="left">
           My Projects.
@@ -195,7 +195,7 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
   }
 
   return (
-    <Box py={50}>
+    <Box mb={{ base: 40, md: 100 }} mt={{ base: 40, md: 100 }}>
       <Container size="lg">
         <div style={{ display: "flex", flexDirection: "row", gap: "40px", alignItems: "center", flexWrap: "wrap" }}>
           {/* Left-hand side: Profile information */}
@@ -239,6 +239,8 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                   target="_blank"
                   variant="outline"
                   leftSection={<TablerIcons.IconBrandGithub size={18} />}
+                  size="md"
+                  className="responsive-button"
                 >
                   GitHub
                 </Button>
@@ -250,6 +252,8 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                   target="_blank"
                   variant="outline"
                   leftSection={<TablerIcons.IconBrandLinkedin size={18} />}
+                  size="md"
+                  className="responsive-button"
                 >
                   LinkedIn
                 </Button>
@@ -261,6 +265,8 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                   target="_blank"
                   variant="outline"
                   leftSection={<TablerIcons.IconBrandDiscord size={18} />}
+                  size="md"
+                  className="responsive-button"
                 >
                   Discord
                 </Button>
@@ -270,8 +276,10 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                   <Button
                     onClick={() => profile.email && copyEmailToClipboard(profile.email)}
                     variant="filled"
+                    size="md"
+                    className="responsive-button"
                     style={{ 
-                      minWidth: "120px",  // Set a fixed minimum width for the button
+                      minWidth: "100px",  // Reduced from 120px for better mobile display
                       transition: "all 0.2s ease"
                     }}
                     leftSection={
@@ -301,6 +309,28 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                   `}
                 </style>
               )}
+              
+              {/* CSS for responsive buttons */}
+              <style>
+                {`
+                  @media (max-width: 768px) {
+                    .responsive-button {
+                      font-size: 0.8rem !important;
+                      height: 32px !important;
+                      padding-left: 12px !important;
+                      padding-right: 12px !important;
+                    }
+                  }
+                  @media (max-width: 480px) {
+                    .responsive-button {
+                      font-size: 0.75rem !important;
+                      height: 28px !important;
+                      padding-left: 10px !important;
+                      padding-right: 10px !important;
+                    }
+                  }
+                `}
+              </style>
             </Group>
           </div>
           
@@ -308,27 +338,45 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
           <div style={{ 
             flex: "0 0 auto", 
             maxWidth: "350px",
-            width: "300px", // Changed from 100% to fixed width
-            height: "300px", // Added fixed height for placeholder
+            width: "300px",
+            height: "300px",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center" // Added for vertical centering
-          }}>
+            alignItems: "center",
+            margin: "0 auto" // Center horizontally when stacked
+          }}
+          className="portrait-container">
             <LazyLoadImage
               alt="Jack Ragless"
               effect="blur"
               src={require("../assets/portrait.png")} // your image source
               style={{ 
-                display: "block", // Added display: block
+                display: "block",
                 maxWidth: "100%",
-                maxHeight: "100%", // Added maxHeight
-                width: "auto", // Added width: auto
+                maxHeight: "100%",
+                width: "auto",
                 height: "auto",
                 borderRadius: "8px",
-                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)"
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+                objectFit: "cover" // Ensures the image covers the area properly
               }}
+              className="portrait-image"
               placeholderSrc={require("../assets/portrait_compressed.png")} // optional placeholder image
             />
+            {/* Adding CSS for responsive portrait */}
+            <style>
+              {`
+                @media (max-width: 768px) {
+                  .portrait-container {
+                    width: 250px !important;
+                    height: 250px !important;
+                  }
+                  .portrait-image {
+                    aspect-ratio: 1/1;
+                  }
+                }
+              `}
+            </style>
           </div>
         </div>
       </Container>

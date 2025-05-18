@@ -11,8 +11,9 @@ import {
   Menu
 } from '@mantine/core';
 import { useComputedColorScheme } from '@mantine/core';
-import { IconSun, IconMoon } from '@tabler/icons-react';
+import { IconSun, IconMoon, IconFileDownload } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
+import { Profile } from '../services/api';
 
 // Added a global style for Indie Flower font
 const globalStyles = `
@@ -32,10 +33,11 @@ interface HeaderProps {
   };
   colorScheme: 'light' | 'dark' | 'auto';
   toggleColorScheme: (value?: 'light' | 'dark' | 'auto') => void;
+  profile?: Profile;
 }
 
 
-const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorScheme, toggleColorScheme }) => {
+const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorScheme, toggleColorScheme, profile }) => {
   const computedColorScheme = useComputedColorScheme();
   const isDark = computedColorScheme === 'dark';
   const [opened, { toggle, close }] = useDisclosure(false);
@@ -63,11 +65,13 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
         Projects
       </Button>
       <Button 
-        component="a" 
-        href="mailto:contact@jackdragless@gmail.com"
+        component="button"
+        onClick={() => window.open(profile?.resumeUrl, '_blank')}
         variant="subtle"
+        leftSection={<IconFileDownload size={16} />}
+        title={!profile?.resumeUrl ? "Resume not available yet" : "Download Resume"}
       >
-        Contact
+        Resume
       </Button>
     </>
   );
@@ -155,8 +159,11 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
                 <Menu.Item onClick={() => handleNavClick(sectionRefs.projects)}>
                   Projects
                 </Menu.Item>
-                <Menu.Item component="a" href="mailto:contact@jackdragless@gmail.com">
-                  Contact
+                <Menu.Item
+                  onClick={() => profile?.resumeUrl && window.open(profile.resumeUrl, '_blank')}
+                  disabled={!profile?.resumeUrl}
+                >
+                  Resume
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>

@@ -28,12 +28,16 @@ async function seedDatabase() {
     // --------- Seed Profile data ---------
     const profileData = {
       name: "Jack Ragless",
-      title: "Full-Stack Developer specializing in modern web applications",
-      bio: "Hello! I'm a full-stack developer passionate about creating modern, responsive web applications. With expertise in both frontend and backend technologies, I bring ideas to life through clean code and thoughtful design.",
-      bioExtended: "My journey in web development started with a curiosity about how websites work, which evolved into a deep passion for building digital experiences. I love solving complex problems and continuously learning new technologies to enhance my skill set.",
+      title: "Full Stack Software Engineer | Previous Data Science Expererience",
+      bio: "Jack of all trades (excuse the pun). For me, software engineering isn’t a medium to display technical prowess. It’s the distillation of client needs into impactful products and features.",
+      bioExtended: `My path to computer science was a winding one. My interests in economics led me to data science projects, which turned into a passion for software development. 
+While studying my Bachelors, I undertook government research in Natural Language Processing (machine learning). 
+I now develop data insights software for some of the world’s largest retailers, drinking daily from the firehose of full-stack development.
+`,
       githubUrl: "https://github.com/jackragless",
       linkedinUrl: "https://www.linkedin.com/in/jack-ragless/",
       discordUrl: "https://discord.com/users/jackragless",
+      resumeUrl: "https://drive.google.com/uc?export=download&id=1RmiNf4rGgZFrl_hZvbrYUNwVnezpeJHP",
       location: "Melbourne, Australia",
       locationUrl: "https://www.google.com/maps/place/Melbourne+VIC/@-37.9696356,144.392389,9z/data=!3m1!4b1!4m6!3m5!1s0x6ad646b5d2ba4df7:0x4045675218ccd90!8m2!3d-37.8136276!4d144.9630576!16zL20vMGNoZ3pt?hl=en&entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D",
       email: "jackdragless@gmail.com"
@@ -47,18 +51,25 @@ async function seedDatabase() {
     // --------- Seed Experience data ---------
     const experienceData = [
       {
-        position: "Senior Developer",
-        company: "Company Name",
-        period: "2022 - Present",
-        description: "Lead development of web applications using React, Node.js, and MongoDB. Implemented modern UI libraries and optimized application performance.",
+        position: "Software Engineer",
+        company: "Quantium",
+        period: "2023 – Present",
+        description: "Full-stack developer in a team of 50+ engineers developing Q.Checkout. This app analyses transaction data from 10M+ Woolworths customers, providing retailers and suppliers with insights into consumer behaviour and product performance. We have now expanded globally, adapting Q.Checkout for retailers including Dollar General and Asda.",
         order: 1
       },
       {
-        position: "Full Stack Developer",
-        company: "Previous Company",
-        period: "2019 - 2022",
-        description: "Developed and maintained web applications, created RESTful APIs, and collaborated with design teams to implement UI/UX improvements.",
+        position: "Machine Learning Researcher",
+        company: "Defence Science Technology Group",
+        period: "2021 – 2022",
+        description: "Developed machine learning model (named \"GloTex\") to automatically generate glossaries for defence documents.",
         order: 2
+      },
+      {
+        position: "Data Analytics Intern",
+        company: "Deloitte",
+        period: "2020",
+        description: "Consulted with Land Services South Australia on data commercialisation strategy as part of the Deloitte Vacationer Challenge.",
+        order: 3
       }
     ];
     
@@ -72,11 +83,18 @@ async function seedDatabase() {
     // --------- Seed Education data ---------
     const educationData = [
       {
-        degree: "Bachelor of Science in Computer Science",
-        institution: "University Name",
-        period: "2013 - 2017",
-        description: "Studied computer science fundamentals, data structures, algorithms, web development, and software engineering principles.",
+        degree: "B. Computer Science & B. Finance",
+        institution: "The University of Adelaide",
+        period: "2022",
+        description: "Double degree. Majored in Artificial Intelligence.",
         order: 1
+      },
+      {
+        degree: "Exchange Program",
+        institution: "Fudan University",
+        period: "2018",
+        description: "Studied abroad in Shanghai, China as part of New Colombo Plan.",
+        order: 2
       }
     ];
     
@@ -95,6 +113,7 @@ async function seedDatabase() {
       { name: "C++", order: 4, icon: "IconBrandCpp", imageUrl: "../assets/technologies/cpp.png", url: "https://isocpp.org/" },
       { name: "Copilot", order: 5, icon: "IconBrandGithub", imageUrl: "../assets/technologies/copilot.png", url: "https://github.com/features/copilot" },
       { name: "CSS", order: 6, icon: "IconBrandCss3", imageUrl: "../assets/technologies/css.png", url: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+      { name: "DataDog", order: 7, icon: "IconBrandDatadog", imageUrl: "../assets/technologies/datadog.png", url: "https://www.datadoghq.com/" },
       { name: "Docker", order: 7, icon: "IconBrandDocker", imageUrl: "../assets/technologies/docker.png", url: "https://www.docker.com/" },
       { name: "Figma", order: 8, icon: "IconBrandFigma", imageUrl: "../assets/technologies/figma.png", url: "https://www.figma.com/" },
       { name: "GCP", order: 9, icon: "IconBrandGoogle", imageUrl: "../assets/technologies/gcp.png", url: "https://cloud.google.com/" },

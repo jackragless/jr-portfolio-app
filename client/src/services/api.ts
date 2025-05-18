@@ -78,6 +78,7 @@ export interface Profile {
   linkedinUrl?: string;
   discordUrl?: string;
   email?: string;
+  resumeUrl?: string;
   createdAt: string;
 }
 
