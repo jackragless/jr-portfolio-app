@@ -279,7 +279,7 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
                     size="md"
                     className="responsive-button"
                     style={{ 
-                      minWidth: "100px",  // Reduced from 120px for better mobile display
+                      minWidth: "130px",  // Reduced from 120px for better mobile display
                       transition: "all 0.2s ease"
                     }}
                     leftSection={

@@ -15,15 +15,6 @@ import { IconSun, IconMoon, IconFileDownload } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { Profile } from '../services/api';
 
-// Added a global style for Indie Flower font
-const globalStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&display=swap');
-`;
-
-const styleElement = document.createElement('style');
-styleElement.textContent = globalStyles;
-document.head.appendChild(styleElement);
-
 interface HeaderProps {
   scrollToSection: (sectionRef: React.RefObject<HTMLDivElement | null>) => void;
   sectionRefs: {
@@ -65,11 +56,12 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
         Projects
       </Button>
       <Button 
-        component="button"
-        onClick={() => window.open(profile?.resumeUrl, '_blank')}
+        component="a"
+        href={`${process.env.PUBLIC_URL}/resume.pdf`}
+        download="resume.pdf"
         variant="subtle"
         leftSection={<IconFileDownload size={16} />}
-        title={!profile?.resumeUrl ? "Resume not available yet" : "Download Resume"}
+        title="Download Resume"
       >
         Resume
       </Button>
@@ -160,8 +152,9 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, sectionRefs, colorSche
                   Projects
                 </Menu.Item>
                 <Menu.Item
-                  onClick={() => profile?.resumeUrl && window.open(profile.resumeUrl, '_blank')}
-                  disabled={!profile?.resumeUrl}
+                  component="a"
+                  href={`${process.env.PUBLIC_URL}/assets/resume.pdf`}
+                  download="resume.pdf"
                 >
                   Resume
                 </Menu.Item>

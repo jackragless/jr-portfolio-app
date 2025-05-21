@@ -96,3 +96,8 @@ html[data-mantine-color-scheme='dark'] body {
   animation: fadeInAnimation 0.3s ease-out forwards; /* Changed 0.8s to 0.5s */
   opacity: 0; /* Start with content invisible */
 }
+
+@font-face {
+ font-family: 'Just Me Again Down Here';
+ src: url("assets/fonts/JustMeAgainDownHere-Regular.ttf") format('truetype');
+}
