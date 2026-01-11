@@ -56,6 +56,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             height={180}
             alt={title}
             fit="cover"
+            radius="md"
             fallbackSrc="https://placehold.co/400x200?text=Project+Image"
           />
         </Card.Section>

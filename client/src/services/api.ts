@@ -18,7 +18,6 @@ const apiClient = axios.create({
 // Add request interceptor for logging
 apiClient.interceptors.request.use(
   config => {
-    console.log(`Making request to: ${config.url}`);
     return config;
   },
   error => {
@@ -29,7 +28,6 @@ apiClient.interceptors.request.use(
 // Add response interceptor with more detailed error handling
 apiClient.interceptors.response.use(
   response => {
-    console.log(`Response from ${response.config.url}:`, response.status);
     return response;
   },
   error => {

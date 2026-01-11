@@ -103,6 +103,7 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({
               width: "20px",
               height: "20px",
               objectFit: "contain",
+              borderRadius: "4px",
             }}
             onError={(e) => {
               console.error(`Failed to load image for ${name}`);

@@ -39,7 +39,6 @@ const initDb = async () => {
     try {
       await initializeDatabase();
       isDbInitialized = true;
-      console.log('Database initialized');
     } catch (error) {
       console.error('Failed to initialize database:', error);
       throw error;
@@ -53,7 +52,6 @@ if (process.env.NODE_ENV !== 'production') {
     try {
       await initDb();
       app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
       });
     } catch (error) {
       console.error('Failed to start server:', error);

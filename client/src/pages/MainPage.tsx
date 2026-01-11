@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import * as TablerIcons from "@tabler/icons-react";
+import ReactMarkdown from "react-markdown";
 import ProjectCard from "../components/ProjectCard";
 import TechnologyBadge from "../components/TechnologyBadge";
 import {
@@ -21,8 +22,6 @@ import {
   Education,
   Technology,
 } from "../services/api";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css'; // Import CSS for effects
 
 // Section refs for scrolling
 interface SectionRefs {
@@ -58,9 +57,9 @@ const AboutSection: React.FC<{
         <Title order={2} size="h1" mb="xl" ta="left">
           About Me.
         </Title>
-        <Text size="md" mb="xl" style={{ whiteSpace: "pre-line" }}>
-          {profile.bioExtended || profile.bio}
-        </Text>
+        <Box size="md" mb="xl">
+          <ReactMarkdown>{profile.bioExtended || profile.bio}</ReactMarkdown>
+        </Box>
 
         <Divider my="xl" />
 
@@ -75,7 +74,9 @@ const AboutSection: React.FC<{
                 <Text size="md" c="dimmed">
                   {exp.company} • {exp.period}
                 </Text>
-                <Text mt="xs">{exp.description}</Text>
+                <Box mt="xs">
+                  <ReactMarkdown>{exp.description}</ReactMarkdown>
+                </Box>
               </Box>
             ))
           ) : (
@@ -96,7 +97,9 @@ const AboutSection: React.FC<{
                 <Text size="md" c="dimmed">
                   {edu.institution} • {edu.period}
                 </Text>
-                <Text mt="xs">{edu.description}</Text>
+                <Box mt="xs">
+                  <ReactMarkdown>{edu.description}</ReactMarkdown>
+                </Box>
               </Box>
             ))
           ) : (
@@ -182,6 +185,7 @@ const ProjectsSection: React.FC<{
 // Hero Section
 const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
   const [copied, setCopied] = React.useState(false);
+  const [videoLoaded, setVideoLoaded] = React.useState(false);
   
   const copyEmailToClipboard = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
@@ -227,9 +231,9 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
               </Group>
             )}
 
-            <Text size="md" mb="xl">
+            {/* <Text size="md" mb="xl">
               {profile.bio}
-            </Text>
+            </Text> */}
             
             <Group gap="md" style={{ position: "relative" }}>
               {profile.githubUrl && (
@@ -337,42 +341,67 @@ const HeroSection: React.FC<{ profile?: Profile }> = ({ profile }) => {
           {/* Right-hand side: Portrait image */}
           <div style={{ 
             flex: "0 0 auto", 
-            maxWidth: "350px",
-            width: "300px",
-            height: "300px",
+            maxWidth: "450px",
+            width: "320px",
+            height: "auto",
+            aspectRatio: "1080 / 1328",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            margin: "0 auto" // Center horizontally when stacked
+            margin: "0 auto", // Center horizontally when stacked
+            position: "relative"
           }}
           className="portrait-container">
-            <LazyLoadImage
-              alt="Jack Ragless"
-              effect="blur"
-              src={require("../assets/portrait.png")} // your image source
-              style={{ 
-                display: "block",
-                maxWidth: "100%",
-                maxHeight: "100%",
-                width: "auto",
-                height: "auto",
+            <img
+              src={require("../assets/avatar_still.jpg")}
+              alt="Jack Ragless avatar"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
                 borderRadius: "8px",
                 boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-                objectFit: "cover" // Ensures the image covers the area properly
+                objectFit: "contain",
+                opacity: videoLoaded ? 0 : 1,
+                transition: "opacity 0.5s ease-in-out"
               }}
               className="portrait-image"
-              placeholderSrc={require("../assets/portrait_compressed.png")} // optional placeholder image
             />
+            <video
+              aria-label="Jack Ragless avatar animation"
+              preload="metadata"
+              playsInline
+              muted
+              loop
+              autoPlay
+              onLoadedData={() => setVideoLoaded(true)}
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: "8px",
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+                objectFit: "contain",
+                opacity: videoLoaded ? 1 : 0,
+                transition: "opacity 0.5s ease-in-out"
+              }}
+              className="portrait-image"
+            >
+              <source src={require("../assets/avatar_animation.mp4")} type="video/mp4" />
+              {/* Fallback text */}
+            </video>
             {/* Adding CSS for responsive portrait */}
             <style>
               {`
                 @media (max-width: 768px) {
                   .portrait-container {
-                    width: 250px !important;
-                    height: 250px !important;
+                    width: 100% !important;
+                    height: auto !important;
+                    aspect-ratio: 1 / 1 !important;
                   }
                   .portrait-image {
-                    aspect-ratio: 1/1;
+                    object-fit: cover !important;
+                    object-position: top !important;
                   }
                 }
               `}

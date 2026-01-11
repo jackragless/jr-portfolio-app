@@ -54,21 +54,21 @@ I now develop data insights software for some of the world’s largest retailers
         position: "Software Engineer",
         company: "Quantium",
         period: "2023 – Present",
-        description: "Full-stack developer in a team of 50+ engineers developing Q.Checkout. This app analyses transaction data from 10M+ Woolworths customers, providing retailers and suppliers with insights into consumer behaviour and product performance. We have now expanded globally, adapting Q.Checkout for retailers including Dollar General and Asda.",
+        description: "Full-stack developer building Q.Checkout from scratch, Quantium's core retail data platform. Q.Checkout transforms transaction data from 10M+ Woolworths customers into behavioural and product performance insights for suppliers. We have since expanded globally, adapting the platform for Dollar General and Asda.\n\nTypes of day-to-day work include:\n\n- Frontend React work on the eye candy and data visualisations\n- Developing .Net microservices for complex backend data transformation\n- Implementing automated monitoring and alerting for faster incidence response times\n- Creating custom workflows for our CI/CD pipeline to improve release process",
         order: 1
       },
       {
         position: "Machine Learning Researcher",
         company: "Defence Science Technology Group",
         period: "2021 – 2022",
-        description: "Developed machine learning model (named \"GloTex\") to automatically generate glossaries for defence documents.",
+        description: "While studying Bachelors, received Stage 1 & 2 research funding as part of Artificial Intelligence for Decision-Making Initiative. Developed machine learning model (named “GloTex”) to generate glossaries for defence documents. Presented academic findings to DST judge panel. At time of research, GloTex’s keyphrase extraction outperformed leading models in 85% of documents sampled.",
         order: 2
       },
       {
-        position: "Data Analytics Intern",
+        position: "Data Science Intern",
         company: "Deloitte",
         period: "2020",
-        description: "Consulted with Land Services South Australia on data commercialisation strategy as part of the Deloitte Vacationer Challenge.",
+        description: "Consulted with Land Services SA to design a data commercialisation strategy as part of the Deloitte Vacationer Challenge, performing exploratory data analysis to identify high-value features within underutilised datasets and quantify their correlation with residential property market valuations. Engineered an ETL pipeline for Deloitte Access Economics, programmatically scraping, cleaning, and structuring over ten years of industry award wage data (~800K datapoints) to enable downstream economic modelling.",
         order: 3
       }
     ];
@@ -83,7 +83,7 @@ I now develop data insights software for some of the world’s largest retailers
     // --------- Seed Education data ---------
     const educationData = [
       {
-        degree: "B. Computer Science & B. Finance",
+        degree: "Bachelor of Computer Science & Bachelor of Finance",
         institution: "The University of Adelaide",
         period: "2022",
         description: "Double degree. Majored in Artificial Intelligence.",
@@ -92,7 +92,6 @@ I now develop data insights software for some of the world’s largest retailers
       {
         degree: "Exchange Program",
         institution: "Fudan University",
-        period: "2018",
         description: "Studied abroad in Shanghai, China as part of New Colombo Plan.",
         order: 2
       }
@@ -109,25 +108,26 @@ I now develop data insights software for some of the world’s largest retailers
     const technologyData = [
       { name: ".NET", order: 1, icon: "IconBrandMicrosoft", imageUrl: "../assets/technologies/dotnet.png", url: "https://dotnet.microsoft.com/" },
       { name: "AWS", order: 2, icon: "IconBrandAws", imageUrl: "../assets/technologies/aws.png", url: "https://aws.amazon.com/" },
-      { name: "Bash", order: 3, icon: "IconTerminal2", imageUrl: "../assets/technologies/bash.png", url: "https://www.gnu.org/software/bash/" },
-      { name: "C++", order: 4, icon: "IconBrandCpp", imageUrl: "../assets/technologies/cpp.png", url: "https://isocpp.org/" },
-      { name: "Copilot", order: 5, icon: "IconBrandGithub", imageUrl: "../assets/technologies/copilot.png", url: "https://github.com/features/copilot" },
-      { name: "CSS", order: 6, icon: "IconBrandCss3", imageUrl: "../assets/technologies/css.png", url: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
-      { name: "DataDog", order: 7, icon: "IconBrandDatadog", imageUrl: "../assets/technologies/datadog.png", url: "https://www.datadoghq.com/" },
-      { name: "Docker", order: 7, icon: "IconBrandDocker", imageUrl: "../assets/technologies/docker.png", url: "https://www.docker.com/" },
-      { name: "Figma", order: 8, icon: "IconBrandFigma", imageUrl: "../assets/technologies/figma.png", url: "https://www.figma.com/" },
-      { name: "GCP", order: 9, icon: "IconBrandGoogle", imageUrl: "../assets/technologies/gcp.png", url: "https://cloud.google.com/" },
-      { name: "Git", order: 10, icon: "IconBrandGit", imageUrl: "../assets/technologies/git.ico", url: "https://git-scm.com/" },
-      { name: "HTML", order: 11, icon: "IconBrandHtml5", imageUrl: "../assets/technologies/html.png", url: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
-      { name: "JavaScript", order: 12, icon: "IconBrandJavascript", imageUrl: "../assets/technologies/javascript.png", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-      { name: "Jira", order: 13, icon: "IconBrandJira", imageUrl: "../assets/technologies/jira.ico", url: "https://www.atlassian.com/software/jira" },
-      { name: "Kubernetes", order: 14, icon: "IconBrandKubernetes", imageUrl: "../assets/technologies/kubernetes.png", url: "https://kubernetes.io/" },
-      { name: "Node JS", order: 15, icon: "IconBrandNodejs", imageUrl: "../assets/technologies/nodejs.png", url: "https://nodejs.org/" },
-      { name: "Python", order: 16, icon: "IconBrandPython", imageUrl: "../assets/technologies/python.png", url: "https://www.python.org/" },
-      { name: "React", order: 17, icon: "IconBrandReact", imageUrl: "../assets/technologies/react.ico", url: "https://reactjs.org/" },
-      { name: "Redux", order: 18, icon: "IconBrandRedux", imageUrl: "../assets/technologies/redux.png", url: "https://redux.js.org/" },
-      { name: "SQL", order: 19, icon: "IconDatabase", imageUrl: "../assets/technologies/sql.png", url: "https://www.w3schools.com/sql/" },
-      { name: "TypeScript", order: 20, icon: "IconBrandTypescript", imageUrl: "../assets/technologies/typescript.png", url: "https://www.typescriptlang.org/" }
+      { name: "Azure", order: 3, icon: "IconBrandAzure", imageUrl: "../assets/technologies/azure.png", url: "https://azure.microsoft.com/" },
+      { name: "Bash", order: 4, icon: "IconTerminal2", imageUrl: "../assets/technologies/bash.png", url: "https://www.gnu.org/software/bash/" },
+      { name: "C++", order: 5, icon: "IconBrandCpp", imageUrl: "../assets/technologies/cpp.png", url: "https://isocpp.org/" },
+      { name: "Claude Code", order: 6, icon: "IconRobot", imageUrl: "../assets/technologies/claude.png", url: "https://claude.ai/" },
+      { name: "Copilot", order: 7, icon: "IconBrandGithub", imageUrl: "../assets/technologies/copilot.png", url: "https://github.com/features/copilot" },
+      { name: "CSS", order: 8, icon: "IconBrandCss3", imageUrl: "../assets/technologies/css.png", url: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+      { name: "DataDog", order: 9, icon: "IconBrandDatadog", imageUrl: "../assets/technologies/datadog.png", url: "https://www.datadoghq.com/" },
+      { name: "Docker", order: 10, icon: "IconBrandDocker", imageUrl: "../assets/technologies/docker.png", url: "https://www.docker.com/" },
+      { name: "Git", order: 11, icon: "IconBrandGit", imageUrl: "../assets/technologies/git.ico", url: "https://git-scm.com/" },
+      { name: "GitHub Actions", order: 12, icon: "IconBrandGithub", imageUrl: "../assets/technologies/github-actions.png", url: "https://github.com/features/actions" },
+      { name: "HTML", order: 13, icon: "IconBrandHtml5", imageUrl: "../assets/technologies/html.png", url: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+      { name: "JavaScript", order: 14, icon: "IconBrandJavascript", imageUrl: "../assets/technologies/javascript.png", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+      { name: "Jira", order: 15, icon: "IconBrandJira", imageUrl: "../assets/technologies/jira.ico", url: "https://www.atlassian.com/software/jira" },
+      { name: "Kubernetes", order: 16, icon: "IconBrandKubernetes", imageUrl: "../assets/technologies/kubernetes.png", url: "https://kubernetes.io/" },
+      { name: "Node JS", order: 17, icon: "IconBrandNodejs", imageUrl: "../assets/technologies/nodejs.png", url: "https://nodejs.org/" },
+      { name: "Python", order: 18, icon: "IconBrandPython", imageUrl: "../assets/technologies/python.png", url: "https://www.python.org/" },
+      { name: "React", order: 19, icon: "IconBrandReact", imageUrl: "../assets/technologies/react.ico", url: "https://reactjs.org/" },
+      { name: "Redux", order: 20, icon: "IconBrandRedux", imageUrl: "../assets/technologies/redux.png", url: "https://redux.js.org/" },
+      { name: "SQL", order: 21, icon: "IconDatabase", imageUrl: "../assets/technologies/sql.png", url: "https://www.w3schools.com/sql/" },
+      { name: "TypeScript", order: 22, icon: "IconBrandTypescript", imageUrl: "../assets/technologies/typescript.png", url: "https://www.typescriptlang.org/" }
     ];
     
     for (const techData of technologyData) {

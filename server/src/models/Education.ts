@@ -11,7 +11,7 @@ export class Education {
   @Column()
   institution: string;
   
-  @Column()
+  @Column({ nullable: true })
   period: string;
   
   @Column('text')

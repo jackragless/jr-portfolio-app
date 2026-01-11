@@ -131,10 +131,10 @@ function App() {
     projects: projectsRef
   };
   
-  // Store color scheme preference in local storage, defaulting to system preference
+  // Store color scheme preference in local storage, defaulting to light mode
   const [colorScheme, setColorScheme] = useLocalStorage<'light' | 'dark' | 'auto'>({
     key: 'portfolio-color-scheme',
-    defaultValue: 'auto',
+    defaultValue: 'light',
   });
 
   // Function to toggle between light, dark, and auto modes
